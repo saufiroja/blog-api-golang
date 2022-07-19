@@ -22,3 +22,8 @@ func (s *Service) FindAllUsers() ([]entity.User, error) {
 	users, err := s.r.FindAllUsers()
 	return users, err
 }
+
+func (s *Service) FindByIDUsers(id uint) (entity.User, error) {
+	user, err := s.r.FindByIDUsers(id)
+	return user, err
+}

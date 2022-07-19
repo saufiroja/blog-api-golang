@@ -31,4 +31,5 @@ func UserRoutes(echo *echo.Echo, conf config.Config) {
 	}))
 
 	g.GET("/users", control.FindAllUsers)
+	g.GET("/users/:id", control.FindByIDUsers)
 }

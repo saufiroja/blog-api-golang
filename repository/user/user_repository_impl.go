@@ -21,3 +21,9 @@ func (r *repository) FindAllUsers() ([]entity.User, error) {
 	err := r.DB.Find(&users).Error
 	return users, err
 }
+
+func (r *repository) FindByIDUsers(id uint) (entity.User, error) {
+	user := entity.User{}
+	err := r.DB.Where("id = ?", id).First(&user).Error
+	return user, err
+}
