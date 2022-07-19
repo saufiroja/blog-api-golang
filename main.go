@@ -3,6 +3,7 @@ package main
 import (
 	"echo/blog-api/config"
 	"echo/blog-api/routers/auth"
+	"echo/blog-api/routers/user"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -19,6 +20,7 @@ func main() {
 
 	// ROUTES
 	auth.AuthRoutes(e, conf)
+	user.UserRoutes(e, conf)
 
 	e.Logger.Fatal(e.Start("127.0.0.1:4000"))
 }
