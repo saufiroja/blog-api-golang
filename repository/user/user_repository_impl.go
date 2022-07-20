@@ -19,11 +19,33 @@ func NewUserRepository(db *gorm.DB) UserRepository {
 func (r *repository) FindAllUsers() ([]entity.User, error) {
 	users := []entity.User{}
 	err := r.DB.Find(&users).Error
+	if err != nil {
+		return users, err
+	}
 	return users, err
 }
 
 func (r *repository) FindByIDUsers(id uint) (entity.User, error) {
 	user := entity.User{}
 	err := r.DB.Where("id = ?", id).First(&user).Error
+	if err != nil {
+		return user, err
+	}
 	return user, err
+}
+
+func (r *repository) UpdateUser(id uint, user entity.User) error {
+	err := r.DB.Where("id = ?", id).Updates(&user).Error
+	if err != nil {
+		return err
+	}
+	return err
+}
+
+func (r *repository) DeleteUser(id uint, user entity.User) error {
+	err := r.DB.Where("id = ?", id).Delete(&user).Error
+	if err != nil {
+		return err
+	}
+	return err
 }

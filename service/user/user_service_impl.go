@@ -19,11 +19,17 @@ func NewUserService(r user.UserRepository, conf config.Config) UserService {
 }
 
 func (s *Service) FindAllUsers() ([]entity.User, error) {
-	users, err := s.r.FindAllUsers()
-	return users, err
+	return s.r.FindAllUsers()
 }
 
 func (s *Service) FindByIDUsers(id uint) (entity.User, error) {
-	user, err := s.r.FindByIDUsers(id)
-	return user, err
+	return s.r.FindByIDUsers(id)
+}
+
+func (s *Service) UpdateUser(id uint, user entity.User) error {
+	return s.r.UpdateUser(id, user)
+}
+
+func (s *Service) DeleteUser(id uint, user entity.User) error {
+	return s.r.DeleteUser(id, user)
 }
