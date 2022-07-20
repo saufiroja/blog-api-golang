@@ -27,9 +27,21 @@ func (s *Service) FindByIDUsers(id uint) (entity.User, error) {
 }
 
 func (s *Service) UpdateUser(id uint, user entity.User) error {
+	// check if id is exist
+	_, err := s.r.FindByIDUsers(id)
+	if err != nil {
+		return err
+	}
+	// update user
 	return s.r.UpdateUser(id, user)
 }
 
 func (s *Service) DeleteUser(id uint, user entity.User) error {
+	// check if id is exist
+	_, err := s.r.FindByIDUsers(id)
+	if err != nil {
+		return err
+	}
+	// delete user
 	return s.r.DeleteUser(id, user)
 }

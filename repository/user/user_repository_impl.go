@@ -35,7 +35,7 @@ func (r *repository) FindByIDUsers(id uint) (entity.User, error) {
 }
 
 func (r *repository) UpdateUser(id uint, user entity.User) error {
-	err := r.DB.Where("id = ?", id).Updates(&user).Error
+	err := r.DB.Model(&user).Where("id = ?", id).Updates(&user).Error
 	if err != nil {
 		return err
 	}

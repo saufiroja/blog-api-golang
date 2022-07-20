@@ -48,21 +48,20 @@ func (c *Controller) UpdateUser(ctx echo.Context) error {
 	user := &entity.User{}
 	// param id
 	id, _ := strconv.Atoi(ctx.Param("id"))
-	ID := uint(id)
-	// req body
-	err := ctx.Bind(user)
-	// check if req body invalid
-	if err != nil {
+	// request body
+	er := ctx.Bind(user)
+	if er != nil {
 		return ctx.JSON(http.StatusBadRequest, map[string]any{
-			"error": err.Error(),
+			"error": er.Error(),
 		})
 	}
 
 	// update user
-	er := c.S.UpdateUser(ID, *user)
-	if er != nil {
+	err := c.S.UpdateUser(uint(id), *user)
+	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, map[string]any{
-			"error": err.Error(),
+			"message": "failed update user",
+			"error":   err.Error(),
 		})
 	}
 	// return success update user
