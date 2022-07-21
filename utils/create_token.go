@@ -12,13 +12,10 @@ type JWTClaims struct {
 	jwt.StandardClaims
 }
 
-func CreateToken(id uint, secret string) (string, error) {
-	claims := JWTClaims{
-		id,
-		jwt.StandardClaims{
-			ExpiresAt: time.Now().Add(time.Hour * 1).Unix(),
-		},
-	}
+func CreateToken(id, secret string) (string, error) {
+	claims := jwt.MapClaims{}
+	claims["id"] = id
+	claims["exp"] = time.Now().Add(time.Hour * 1).Unix()
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	return token.SignedString([]byte(secret))
