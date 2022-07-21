@@ -6,7 +6,7 @@ import (
 
 // User is the user entity.
 type User struct {
-	ID       uint   `gorm:"primaryKey;autoIncrement;not null" json:"id"`
+	ID       string `gorm:"primaryKey;not null" json:"id"`
 	Username string `gorm:"size:50;not null;unique" json:"username" validate:"required,min=4,max=50"`
 	Email    string `gorm:"size:100;not null;unique" json:"email" validate:"required"`
 	Password string `gorm:"size:100;not null;->:false;<-:create" json:"password" validate:"required,min=8,max=100"`

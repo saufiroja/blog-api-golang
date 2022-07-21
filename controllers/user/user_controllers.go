@@ -4,7 +4,6 @@ import (
 	"echo/blog-api/entity"
 	"echo/blog-api/service/user"
 	"net/http"
-	"strconv"
 
 	"github.com/labstack/echo/v4"
 )
@@ -28,9 +27,9 @@ func (c *Controller) FindAllUsers(ctx echo.Context) error {
 }
 
 func (c *Controller) FindByIDUsers(ctx echo.Context) error {
-	id, _ := strconv.Atoi(ctx.Param("id"))
+	id := ctx.Param("id")
 
-	user, err := c.S.FindByIDUsers(uint(id))
+	user, err := c.S.FindByIDUsers(id)
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, map[string]any{
 			"error": err.Error(),
@@ -45,11 +44,11 @@ func (c *Controller) FindByIDUsers(ctx echo.Context) error {
 
 func (c *Controller) UpdateUser(ctx echo.Context) error {
 	// entity user
-	user := &entity.User{}
+	user := entity.User{}
 	// param id
-	id, _ := strconv.Atoi(ctx.Param("id"))
+	id := ctx.Param("id")
 	// request body
-	er := ctx.Bind(user)
+	er := ctx.Bind(&user)
 	if er != nil {
 		return ctx.JSON(http.StatusBadRequest, map[string]any{
 			"error": er.Error(),
@@ -57,7 +56,7 @@ func (c *Controller) UpdateUser(ctx echo.Context) error {
 	}
 
 	// update user
-	err := c.S.UpdateUser(uint(id), *user)
+	err := c.S.UpdateUser(id, user)
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, map[string]any{
 			"message": "failed update user",
@@ -72,12 +71,12 @@ func (c *Controller) UpdateUser(ctx echo.Context) error {
 
 func (c *Controller) DeleteUser(ctx echo.Context) error {
 	// entity user
-	user := &entity.User{}
+	user := entity.User{}
 	// param id
-	id, _ := strconv.Atoi(ctx.Param("id"))
+	id := ctx.Param("id")
 
 	// delete user
-	err := c.S.DeleteUser(uint(id), *user)
+	err := c.S.DeleteUser(id, user)
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, map[string]any{
 			"error": err.Error(),
