@@ -25,7 +25,7 @@ func (r *repository) FindAllUsers() ([]entity.User, error) {
 	return users, err
 }
 
-func (r *repository) FindByIDUsers(id uint) (entity.User, error) {
+func (r *repository) FindByIDUsers(id string) (entity.User, error) {
 	user := entity.User{}
 	err := r.DB.Where("id = ?", id).First(&user).Error
 	if err != nil {
@@ -34,7 +34,7 @@ func (r *repository) FindByIDUsers(id uint) (entity.User, error) {
 	return user, err
 }
 
-func (r *repository) UpdateUser(id uint, user entity.User) error {
+func (r *repository) UpdateUser(id string, user entity.User) error {
 	err := r.DB.Model(&user).Where("id = ?", id).Updates(&user).Error
 	if err != nil {
 		return err
@@ -42,7 +42,7 @@ func (r *repository) UpdateUser(id uint, user entity.User) error {
 	return err
 }
 
-func (r *repository) DeleteUser(id uint, user entity.User) error {
+func (r *repository) DeleteUser(id string, user entity.User) error {
 	err := r.DB.Where("id = ?", id).Delete(&user).Error
 	if err != nil {
 		return err
