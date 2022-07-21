@@ -2,6 +2,7 @@ package main
 
 import (
 	"echo/blog-api/config"
+	"echo/blog-api/routers/article"
 	"echo/blog-api/routers/auth"
 	"echo/blog-api/routers/user"
 
@@ -21,6 +22,7 @@ func main() {
 	// ROUTES
 	auth.AuthRoutes(e, conf)
 	user.UserRoutes(e, conf)
+	article.ArticleRoutes(e, conf)
 
 	e.Logger.Fatal(e.Start("127.0.0.1:4000"))
 }
