@@ -8,7 +8,6 @@ type Article struct {
 	Description string `json:"description" validate:"required"`
 
 	UserID string `json:"user_id" gorm:"not null"`
-	User   User   `json:"user" gorm:"foreignkey:UserID;association_foreignkey:ID;->:false;<-:create"`
 
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`

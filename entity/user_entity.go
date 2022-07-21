@@ -11,6 +11,8 @@ type User struct {
 	Email    string `gorm:"size:100;not null;unique" json:"email" validate:"required"`
 	Password string `gorm:"size:100;not null;->:false;<-:create" json:"password" validate:"required,min=8,max=100"`
 
+	Article []Article `gorm:"foreignKey:UserID;->:false;<-:create;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"article"`
+
 	CreatedAt time.Time  `gorm:"default:CURRENT_TIMESTAMP" json:"created_at"`
 	UpdatedAt time.Time  `gorm:"default:CURRENT_TIMESTAMP" json:"updated_at"`
 	DeletedAt *time.Time `json:"deleted_at"`

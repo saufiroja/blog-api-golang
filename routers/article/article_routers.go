@@ -19,6 +19,7 @@ func ArticleRoutes(echo *echo.Echo, conf config.Config) {
 		S: service,
 	}
 
+	e := echo.Group("/api")
 	g := echo.Group("/api")
 
 	g.Use(middleware.JWTWithConfig(middleware.JWTConfig{
@@ -27,4 +28,8 @@ func ArticleRoutes(echo *echo.Echo, conf config.Config) {
 	}))
 
 	g.POST("/articles", control.CreateArticle)
+	e.GET("/articles", control.FindAllArticle)
+	e.GET("/articles/:id", control.FindByIDArticle)
+	g.PUT("/articles/:id", control.UpdateArticle)
+	g.DELETE("/articles/:id", control.DeleteArticle)
 }
