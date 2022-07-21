@@ -5,6 +5,7 @@ import (
 	c "echo/blog-api/controllers/article"
 	r "echo/blog-api/repository/article"
 	s "echo/blog-api/service/article"
+	"echo/blog-api/utils"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -19,9 +20,12 @@ func ArticleRoutes(echo *echo.Echo, conf config.Config) {
 		S: service,
 	}
 
+	// group
 	e := echo.Group("/api")
 	g := echo.Group("/api")
 
+	// middlewares
+	g.Use(utils.CheckCookie)
 	g.Use(middleware.JWTWithConfig(middleware.JWTConfig{
 		SigningKey:    []byte(conf.JWT_SECRET),
 		SigningMethod: "HS256",
