@@ -5,6 +5,7 @@ import (
 	"echo/blog-api/service/auth"
 	"net/http"
 
+	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 )
 
@@ -22,7 +23,9 @@ type Controller struct {
 */
 func (c *Controller) Register(ctx echo.Context) error {
 	// model user
-	user := entity.User{}
+	user := entity.User{
+		ID: uuid.New().String(),
+	}
 	// bind user
 	err := ctx.Bind(&user)
 	if err != nil {
